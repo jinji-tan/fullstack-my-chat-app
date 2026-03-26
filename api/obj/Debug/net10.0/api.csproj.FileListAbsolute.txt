@@ -17,7 +17,6 @@ C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net1
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\api.pdb
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Dapper.dll
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Microsoft.Bcl.Cryptography.dll
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Microsoft.Data.SqlClient.dll
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Microsoft.Data.SqlClient.Extensions.Abstractions.dll
@@ -66,3 +65,6 @@ C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\obj\Debug\net1
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\obj\Debug\net10.0\api.pdb
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\obj\Debug\net10.0\api.genruntimeconfig.cache
 C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\obj\Debug\net10.0\ref\api.dll
+C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Louis Tan\Desktop\Projects\API\fullstack-my-chat-app\api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
