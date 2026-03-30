@@ -28,11 +28,16 @@ namespace api.Controllers
                 return BadRequest("Email already exists.");
 
             bool response = await _auth.Register(registerDto);
+            if (!response) return BadRequest("Failed to register.");
 
-            if (!response)
-                return BadRequest("Failed to register.");
+            var user = await _auth.GetUserByEmail(registerDto.Email);
+            if (user == null) return BadRequest("User was created but could not be retrieved.");
 
-            return Ok(new { message = "Successfully registered." });
+            return Ok(new
+            {
+                message = "Successfully registered.",
+                token = _token.CreateToken(user.Id, user.Email)
+            });
         }
 
 
@@ -46,7 +51,7 @@ namespace api.Controllers
 
             return Ok(new
             {
-                token = _token.CreateToken(user.Email),
+                token = _token.CreateToken(user.Id, user.Email),
                 fullName = user.FirstName + " " + user.LastName
             });
         }
@@ -55,13 +60,14 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto user)
         {
-            var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
+            // var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
+            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var userToUpdate = await _auth.GetUserById(id);
 
             if (userToUpdate == null) return NotFound("User not found.");
 
-            if (userToUpdate.Email != userEmailFromToken)
+            if (string.IsNullOrEmpty(userIdFromToken) || id.ToString() != userIdFromToken)
                 return Unauthorized("You can only update your own profile.");
 
             bool response = await _auth.UpdateUser(id, user);
@@ -76,13 +82,14 @@ namespace api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
+            // var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
+            var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var userToDelete = await _auth.GetUserById(id);
 
             if (userToDelete == null) return NotFound("User not found.");
 
-            if (userToDelete.Email != userEmailFromToken)
+            if (id.ToString() != userIdFromToken)
                 return Unauthorized("You can only delete your own account.");
 
             bool response = await _auth.DeleteUser(id);
@@ -93,5 +100,5 @@ namespace api.Controllers
             return Ok(new { message = $"Successfully deleted user {id}" });
         }
     }
-    
+
 }
