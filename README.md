@@ -1,7 +1,5 @@
 # Fullstack Chat App 💬
 
-### 🚧 ONGOING PROJECT
-
 A real-time chat application built with a modern tech stack, focusing on performance, security, and a seamless user experience.
 
 ---
@@ -17,6 +15,15 @@ A real-time chat application built with a modern tech stack, focusing on perform
 | Registration Errors | Login Errors |
 | :---: | :---: |
 | ![Register Error Demo](./assets/register-error-demo.gif) | ![Login Error Demo](./assets/login-error-demo.gif) |
+
+### Real-time Messaging
+| Sender Perspective | Receiver Perspective |
+| :---: | :---: |
+| ![Sender Demo](./assets/sender-demo.gif) | ![Receiver Demo](./assets/receiver-demo.gif) |
+
+### Overall Chat Experience
+![Chat Demo](./assets/chat-demo.gif)
+
 
 ---
 
@@ -96,6 +103,6 @@ fullstack-my-chat-app/
 - [x] Initial Project Setup
 - [x] User Authentication (API & UI)
 - [x] JWT Integration
-- [/] Real-time Messaging Implementation
-- [ ] Message History Optimization
-- [ ] User Profile Customization
+- [x] Real-time Messaging Implementation
+- [x] Message History Optimization
+- [x] User Profile Customization
