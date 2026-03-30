@@ -35,6 +35,14 @@ namespace api.Data
 
             return await connection.ExecuteAsync(sql, parameter) > 0;
         }
-    
+
+        public async Task<int> ExecuteSqlScalar(string sql, object? parameter = null)
+        {
+            using var connection = CreateConnection();
+
+            var result = await connection.ExecuteScalarAsync<int>(sql, parameter);
+            return result;
+        }
+
     }
 }
