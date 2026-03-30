@@ -57,6 +57,8 @@ builder.Services.AddSingleton<MyChatAppDapperContext>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthHelper, AuthHelper>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+
 
 var tokenKey = builder.Configuration["Jwt:TokenKey"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
