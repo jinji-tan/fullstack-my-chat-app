@@ -62,7 +62,6 @@ namespace api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserUpdateDto user)
         {
-            // var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
             var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var userToUpdate = await _auth.GetUserById(id);
@@ -84,7 +83,6 @@ namespace api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            // var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
             var userIdFromToken = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var userToDelete = await _auth.GetUserById(id);
