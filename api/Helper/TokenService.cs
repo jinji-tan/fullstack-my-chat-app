@@ -13,10 +13,11 @@ namespace api.Helper
         {
             _config = config;
         }
-        public string CreateToken(string email)
+        public string CreateToken(int userId, string email)
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 new Claim(ClaimTypes.Email, email)
             };
 
