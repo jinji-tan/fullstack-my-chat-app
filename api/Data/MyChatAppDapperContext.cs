@@ -15,11 +15,11 @@ namespace api.Data
 
         private IDbConnection CreateConnection() => new SqlConnection(_config.GetConnectionString("DefaultConnection"));
 
-        public async Task<IEnumerable<T>> LoadData<T>(string sql, object? parameter = null)
+        public async Task<IEnumerable<T>> LoadData<T>(string sql, object? parameters = null)
         {
             using var connection = CreateConnection();
 
-            return await connection.QueryAsync<T>(sql, parameter);
+            return await connection.QueryAsync<T>(sql, parameters);
         }
 
         public async Task<T?> LoadDataSingle<T>(string sql, object? parameter = null)

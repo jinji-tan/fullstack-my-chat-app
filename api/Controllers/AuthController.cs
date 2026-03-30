@@ -1,8 +1,10 @@
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using api.DTOs;
 using api.Repositories.interfaces;
 using api.Service.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -20,12 +22,12 @@ namespace api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserDto userDto)
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
-            if (await _auth.UserExists(userDto.Email))
+            if (await _auth.UserExists(registerDto.Email))
                 return BadRequest("Email already exists.");
 
-            bool response = await _auth.Register(userDto);
+            bool response = await _auth.Register(registerDto);
 
             if (!response)
                 return BadRequest("Failed to register.");
@@ -39,13 +41,7 @@ namespace api.Controllers
         {
             var user = await _auth.GetUserByEmail(authDto.Email);
 
-            if (user == null)
-                return Unauthorized("Invalid email or password.");
-
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-            byte[] computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(authDto.Password));
-
-            if (!computedHash.SequenceEqual(user.PasswordHash))
+            if (user == null || !_auth.VerifyPassword(authDto.Password, user.PasswordHash, user.PasswordSalt))
                 return Unauthorized("Invalid email or password.");
 
             return Ok(new
@@ -53,6 +49,48 @@ namespace api.Controllers
                 token = _token.CreateToken(user.Email),
                 fullName = user.FirstName + " " + user.LastName
             });
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserUpdateDto user)
+        {
+            var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var userToUpdate = await _auth.GetUserById(id);
+
+            if (userToUpdate == null) return NotFound("User not found.");
+
+            if (userToUpdate.Email != userEmailFromToken)
+                return Unauthorized("You can only update your own profile.");
+
+            bool response = await _auth.UpdateUser(id, user);
+
+            if (!response)
+                return BadRequest("Failed to update user.");
+
+            return Ok(user);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var userEmailFromToken = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var userToDelete = await _auth.GetUserById(id);
+
+            if (userToDelete == null) return NotFound("User not found.");
+
+            if (userToDelete.Email != userEmailFromToken)
+                return Unauthorized("You can only delete your own account.");
+
+            bool response = await _auth.DeleteUser(id);
+
+            if (!response)
+                return BadRequest("Failed to delete user.");
+
+            return Ok(new { message = $"Successfully deleted user {id}" });
         }
     }
 }

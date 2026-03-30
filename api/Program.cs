@@ -1,6 +1,7 @@
 using System.Text;
 using api.Data;
 using api.Helper;
+using api.Repositories;
 using api.Repositories.interfaces;
 using api.Service.interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -55,6 +56,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddSingleton<MyChatAppDapperContext>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthHelper, AuthHelper>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var tokenKey = builder.Configuration["Jwt:TokenKey"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
