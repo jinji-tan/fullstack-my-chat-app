@@ -136,7 +136,6 @@ fullstack-my-chat-app/
 - **JWT Authentication**: Secure token-based access control.
 - **Dapper**: Optimized performance for database queries with minimal overhead.
 - **Input Validation**: Robust handling for user registration, authentication, and messaging.
-- **Environment Secrets**: Use `dotnet user-secrets` or environment variables for connection strings in development and production.
 
 ---
 
