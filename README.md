@@ -37,13 +37,35 @@ A real-time chat application built with a modern tech stack, focusing on perform
 
 ---
 
+## 🛣️ API Endpoints
+
+### Authentication (`/api/auth`)
+| Method | Endpoint | Description | Auth |
+| :--- | :--- | :--- | :---: |
+| POST | `/register` | Register a new user | 🔓 |
+| POST | `/login` | Authenticate and get JWT | 🔓 |
+| PUT | `/{id}` | Update user profile | 🔐 |
+| DELETE | `/{id}` | Delete user account | 🔐 |
+
+### Chat (`/api/chat`)
+| Method | Endpoint | Description | Auth |
+| :--- | :--- | :--- | :---: |
+| GET | `/{userId}` | Get messages for a conversation | 🔐 |
+| POST | `/` | Send a new message | 🔐 |
+
+### Users (`/api/user`)
+| Method | Endpoint | Description | Auth |
+| :--- | :--- | :--- | :---: |
+| GET | `/` | Retrieve all users | 🔐 |
+| GET | `/{searchTerm}` | Search users by name/email | 🔐 |
+
+---
+
 ## 🛠️ Tech Stack
 
 ### Frontend
 - **Framework**: [React 19](https://react.dev/)
 - **Build Tool**: [Vite 8](https://vitejs.dev/)
-- **Styling**: Vanilla CSS
-- **Linting**: ESLint
 
 ### Backend
 - **Framework**: [.NET 10 Web API](https://dotnet.microsoft.com/)
@@ -105,4 +127,20 @@ fullstack-my-chat-app/
 - [x] JWT Integration
 - [x] Real-time Messaging Implementation
 - [x] Message History Optimization
-<!-- - [x] User Profile Customization -->
+- [x] User Profile Customization
+
+---
+
+## 🛡️ Configuration & Security
+
+- **JWT Authentication**: Secure token-based access control.
+- **Dapper**: Optimized performance for database queries with minimal overhead.
+- **Input Validation**: Robust handling for user registration, authentication, and messaging.
+- **Environment Secrets**: Use `dotnet user-secrets` or environment variables for connection strings in development and production.
+
+---
+
+## 👤 Author
+
+**Louis Tan**
+- GitHub: [@jinji-tan](https://github.com/jinji-tan)
